@@ -34,12 +34,12 @@ void setup() {
 void loop() {
   MQTT_connect();
   uint16_t value = analogRead(A0);
-  pot = value;
+  potvalue = value;
   Serial.print(F("Sending pot val "));
-    Serial.print(pot);
+    Serial.print(potvalue);
     Serial.print("...");
     delay(2000);
-    if (! potValue.publish(pot)) {
+    if (! pot.publish(potvalue)) {
       Serial.println(F("Failed"));
     } else {
       Serial.println(F("OK!"));
@@ -54,7 +54,7 @@ void MQTT_connect(){
   Serial.println("Connecing to MQTT...");
   while(mqtt.connect() != 0){
     Serial.println(mqtt.connectErrorString(mqtt.connect()));
-    Serial.println("Retrying MQTT connection in 5 second");
+    Serial.println("Retrying connection in 5 second");
     mqtt.disconnect();
     delay(5000);
     int Time = 0;
